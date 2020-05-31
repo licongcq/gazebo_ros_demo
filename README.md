@@ -3,7 +3,7 @@ Gazebo simulation demo of a robot chasing a white ball.
  
 ![](doc/demo.gif)
  
-The robot is controlled by a pair of differential wheels and a simple recognition function was written to process the image from the camera feed & control the robot accordingly. A simple crosshair is also added to show the location of the recognized ball.
+The robot is driven by a pair of [differential wheels](src/ball_chaser/src/drive_bot.cpp). And a simple [recognition lib](src/ball_chaser/src/process_image.cpp) was written to process the raw image from the camera feed & control the robot accordingly. A simple crosshair is also added to show the location of the recognized ball.
 
 The robot is controlled by differential drive on the back wheels, while the front wheels are programmed to be relatively slippery so they can allow the robot to turn. This is because gazebo_ros_diff_drive does not allow skid steering. In the future I might replace it with ROS [diff_driver_controller](http://wiki.ros.org/diff_drive_controller) to address this.
 
