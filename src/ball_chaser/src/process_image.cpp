@@ -5,6 +5,7 @@
 // Define a global client that can request services
 ros::ServiceClient client;
 
+// Used to publish processed image with crosshair
 ros::Publisher processed_image_publisher;
 
 // This function calls the command_robot service to drive the robot in the specified direction
@@ -59,9 +60,9 @@ void process_image_callback(const sensor_msgs::Image img)
       }
     }
 
-    // Make a copy of raw image input so we can start drawing the HUD.
+    // Make a copy of raw image input so we can start drawing the HUD
     sensor_msgs::Image processed_image = img;
-    // The data field in img is readonly. So we make a mutable copy of it.
+    // The data field in img is readonly. So we make a mutable copy of it
     auto processed_data = img.data;
     constexpr int hud_color_red = 200;
 
@@ -71,7 +72,7 @@ void process_image_callback(const sensor_msgs::Image img)
       const float white_pixels_avg_y =
           (float)white_pixels_sum_y / white_pixel_count;
 
-      // Draw a 3-pixels cross as the HUD
+      // Draw a 3-pixels-wide cross
       const int center_x = (int)round(white_pixels_avg_x);
       const int center_y = (int)round(white_pixels_avg_y);
 
@@ -97,7 +98,7 @@ void process_image_callback(const sensor_msgs::Image img)
         }
       }
 
-      // Drive the robot.
+      // Drive the robot
       if (white_pixels_avg_x < img.width / 3.0) {
         // Ball is on the left side.
         drive_robot(0, 0.2);
@@ -129,11 +130,11 @@ int main(int argc, char** argv)
     client = n.serviceClient<ball_chaser::DriveToTarget>(
         "/ball_chaser/command_robot");
 
-    // Subscribe to /camera/rgb/image_raw topic to read the image data inside
-    // the process_image_callback function
+    // Subscribe to the raw image topic
     ros::Subscriber sub1 = n.subscribe(
         "/camera/rgb/image_raw", 10, process_image_callback);
 
+    // Will be used to publish processed image with crosshair
     processed_image_publisher =
         n.advertise<sensor_msgs::Image>("/camera/rgb/image_processed", 10);
 
