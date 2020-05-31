@@ -259,6 +259,11 @@
     <axis xyz="0 1 0" rpy="0 0 0"/>
   </joint>
 
+  <!--
+      URDF doesn't support customized friction on links. So we have to use the
+      workaround provided by Gazebo. Details can be found in:
+      http://gazebosim.org/tutorials?tut=ros_urdf
+    -->
   <gazebo reference="left_front_wheel">
     <material>Gazebo/White</material>
     <mu1>0.05</mu1>
