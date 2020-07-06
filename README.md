@@ -9,6 +9,26 @@ The robot is controlled by differential drive on the back wheels, while the fron
 
 The visual recognition logic is very naive and relies on the color of the ball being perfectly white, since this is not a computer vision demo. But improvements with OpenCV are possible.
 
+# Usage
+
+Build:
+
+`cd src; catkin_init_workspace; cd..`
+
+`catkin_make`
+
+`source devel/setup.sh`
+
+Launch the simulation:
+
+`roslaunch my_robot world.launch`
+
+Launch the ball chaser:
+
+`roslaunch ball_chaser ball_chaser.launch`
+
+After startup the robot will try to locate the white ball with the camera and move towards the ball. You could drag the white ball in Gazebo editor to change its location.
+
 # Dependencies
 
 I created this project with the help of tutorials in Udacity [ND209](https://www.udacity.com/course/robotics-software-engineer--nd209) course, plus some personal spice. Dependencies I've used:
